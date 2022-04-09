@@ -103,6 +103,10 @@ func (ll *LL) Contains(x int) bool {
 }
 
 func (ll *LL) Insert(index, data int) bool {
+	if index < 0 {
+		return false
+	}
+
 	node := &Node{
 		Data: data,
 	}
@@ -149,6 +153,10 @@ func (ll *LL) DeleteData(x int) bool {
 
 func (ll *LL) DeleteIndex(index int) bool {
 	if ll.head == nil {
+		return false
+	}
+
+	if index < 0 {
 		return false
 	}
 
