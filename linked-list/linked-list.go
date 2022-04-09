@@ -66,7 +66,7 @@ func (ll *LL) Traverse() *Node {
 
 	head := ll.head
 	for head != nil {
-		fmt.Println("%d", head.Data)
+		fmt.Println(head.Data)
 
 		last = head
 		head = head.Next
@@ -110,6 +110,7 @@ func (ll *LL) Insert(index, data int) bool {
 	if index == 0 {
 		node.Next = ll.head
 		ll.head = node
+		return true
 	}
 
 	prevNode := ll.GetNthNode(index - 1)
@@ -187,8 +188,6 @@ func main() {
 			fmt.Scanf("%d", &i)
 
 			switch i {
-			case 0:
-				continue
 			case 1:
 				var data int
 				fmt.Printf("Enter data: ")
