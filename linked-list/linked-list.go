@@ -91,7 +91,7 @@ func (ll *LL) Append(x int) {
 
 func (ll *LL) Contains(x int) bool {
 	head := ll.head
-	while(head != nil) {
+	for head != nil {
 		if head.Data == x {
 			return true
 		}
@@ -112,7 +112,7 @@ func (ll *LL) Insert(index, data int) bool {
 		ll.head = node
 	}
 
-	prevNode = ll.GetNthNode(index-1)
+	prevNode := ll.GetNthNode(index - 1)
 
 	if prevNode == nil {
 		return false
@@ -128,7 +128,7 @@ func (ll *LL) DeleteData(x int) bool {
 	head := ll.head
 	var prev *Node
 
-	for head != nil && head.data != x {
+	for head != nil && head.Data != x {
 		prev = head
 		head = head.Next
 	}
@@ -156,7 +156,7 @@ func (ll *LL) DeleteIndex(index int) bool {
 		return true
 	}
 
-	prevNode := ll.GetNthNode(index-1)
+	prevNode := ll.GetNthNode(index - 1)
 	if prevNode == nil {
 		return false
 	}
@@ -180,51 +180,51 @@ func main() {
 7. Print length
 8. Exit
 `)
-		
+
 		inputReceived := false
 		for !inputReceived {
 			fmt.Printf("Enter your choice: ")
 			fmt.Scanf("%d", &i)
 
 			switch i {
-				case 0:
-					continue
-				case 1:
-					var data int
-					fmt.Printf("Enter data: ")
-					fmt.Scanf("%d", &data)
-					ll.Append(data)
-				case 2:
-					var index, data int
-					fmt.Printf("Enter index: ")
-					fmt.Scanf("%d", &index)
-					fmt.Printf("Enter data: ")
-					fmt.Scanf("%d", &data)
-					fmt.Println("Success: ", ll.Insert(index, data))
-				case 3:
-					ll.Traverse()
-				case 4:
-					var data int
-					fmt.Printf("Enter data: ")
-					fmt.Scanf("%d", &data)
-					fmt.Println("Finding status: ", ll.Contains(data))
-				case 5:
-					var data int
-					fmt.Printf("Enter data: ")
-					fmt.Scanf("%d", &data)
-					fmt.Println("Deletion status: ", ll.DeleteData(data))
-				case 6:
-					var index int
-					fmt.Printf("Enter index: ")
-					fmt.Scanf("%d", &index)
-					fmt.Println("Deletion status: ", ll.DeleteIndex(index))
-				case 7:
-					fmt.Println("Length: ", ll.Len())
-				case 8:
-					return
-				default:
-					fmt.Println("Invalid choice.")
-					continue
+			case 0:
+				continue
+			case 1:
+				var data int
+				fmt.Printf("Enter data: ")
+				fmt.Scanf("%d", &data)
+				ll.Append(data)
+			case 2:
+				var index, data int
+				fmt.Printf("Enter index: ")
+				fmt.Scanf("%d", &index)
+				fmt.Printf("Enter data: ")
+				fmt.Scanf("%d", &data)
+				fmt.Println("Success: ", ll.Insert(index, data))
+			case 3:
+				ll.Traverse()
+			case 4:
+				var data int
+				fmt.Printf("Enter data: ")
+				fmt.Scanf("%d", &data)
+				fmt.Println("Finding status: ", ll.Contains(data))
+			case 5:
+				var data int
+				fmt.Printf("Enter data: ")
+				fmt.Scanf("%d", &data)
+				fmt.Println("Deletion status: ", ll.DeleteData(data))
+			case 6:
+				var index int
+				fmt.Printf("Enter index: ")
+				fmt.Scanf("%d", &index)
+				fmt.Println("Deletion status: ", ll.DeleteIndex(index))
+			case 7:
+				fmt.Println("Length: ", ll.Len())
+			case 8:
+				return
+			default:
+				fmt.Println("Invalid choice.")
+				continue
 			}
 
 			inputReceived = true
