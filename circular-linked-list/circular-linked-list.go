@@ -21,7 +21,7 @@ func (ll *LL) Len() int {
 	l := 1
 
 	head := ll.head
-	for head.next != ll.head {
+	for head.Next != ll.head {
 		l++
 		head = head.Next
 	}
@@ -39,7 +39,7 @@ func (ll *LL) GetLastNode() *Node {
 	var last *Node
 
 	head := ll.head
-	for head.next != ll.head {
+	for head.Next != ll.head {
 		last = head
 		head = head.Next
 	}
@@ -58,7 +58,7 @@ func (ll *LL) GetNthNode(index int) *Node {
 	var node *Node
 
 	head := ll.head
-	for head.next != ll.head && i != index {
+	for head.Next != ll.head && i != index {
 		i++
 		node = head
 
@@ -81,7 +81,7 @@ func (ll *LL) Traverse() *Node {
 	var last *Node
 
 	head := ll.head
-	for head.next != ll.head {
+	for head.Next != ll.head {
 		fmt.Println(head.Data)
 
 		last = head
@@ -94,7 +94,7 @@ func (ll *LL) Traverse() *Node {
 func (ll *LL) Append(x int) {
 	node := &Node{
 		Data: x,
-		node.Next: ll.head
+		Next: ll.head,
 	}
 
 	last := ll.GetLastNode()
@@ -112,7 +112,7 @@ func (ll *LL) Contains(x int) bool {
 	}
 
 	head := ll.head
-	for head.next != ll.head {
+	for head.Next != ll.head {
 		if head.Data == x {
 			return true
 		}
@@ -180,7 +180,6 @@ func (ll *LL) DeleteData(x int) bool {
 		return false
 	}
 
-
 	prev.Next = head.Next
 	return true
 }
@@ -195,12 +194,12 @@ func (ll *LL) DeleteIndex(index int) bool {
 	}
 
 	if index == 0 {
-		if head.Next == ll.head {
+		if ll.head.Next == ll.head {
 			ll.head = nil
 		} else {
 			ll.head = ll.head.Next
 		}
-	
+
 		return true
 	}
 
