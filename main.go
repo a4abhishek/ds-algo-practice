@@ -1,7 +1,7 @@
 package main
 
-import circularlinkedlist "dsalgo/circular-linked-list"
+import stack "dsalgo/stack"
 
 func main() {
-	circularlinkedlist.Driver()
+	stack.Driver()
 }
