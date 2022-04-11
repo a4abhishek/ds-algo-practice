@@ -36,15 +36,12 @@ func (ll *LL) GetLastNode() *Node {
 		return nil
 	}
 
-	var last *Node
-
 	head := ll.head
 	for head.Next != ll.head {
-		last = head
 		head = head.Next
 	}
 
-	return last
+	return head
 }
 
 // GetNthNode returns the node address of node at index
@@ -78,10 +75,11 @@ func (ll *LL) Traverse() *Node {
 		return nil
 	}
 
-	var last *Node
+	fmt.Println(ll.head.Data)
 
-	head := ll.head
-	for head.Next != ll.head {
+	last := ll.head
+	head := last.Next
+	for head != ll.head {
 		fmt.Println(head.Data)
 
 		last = head
@@ -94,7 +92,6 @@ func (ll *LL) Traverse() *Node {
 func (ll *LL) Append(x int) {
 	node := &Node{
 		Data: x,
-		Next: ll.head,
 	}
 
 	last := ll.GetLastNode()
@@ -104,6 +101,8 @@ func (ll *LL) Append(x int) {
 	} else {
 		last.Next = node
 	}
+
+	node.Next = ll.head // Need to assign it here, as ll.head might be nil in the above
 }
 
 func (ll *LL) Contains(x int) bool {
@@ -133,8 +132,8 @@ func (ll *LL) Insert(index, data int) bool {
 	}
 
 	if index == 0 {
-		node.Next = ll.head
 		ll.head = node
+		node.Next = ll.head // This should be below, as ll.head is still nil until previous line
 		return true
 	}
 
