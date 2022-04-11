@@ -1,4 +1,4 @@
-package main
+package linkedlist
 
 import (
 	"fmt"
@@ -174,7 +174,7 @@ func (ll *LL) DeleteIndex(index int) bool {
 	return true
 }
 
-func main() {
+func Driver() {
 	ll := LL{}
 
 	i := 0
