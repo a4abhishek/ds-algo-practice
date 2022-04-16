@@ -1,7 +1,7 @@
 package main
 
-import stack "dsalgo/stack"
+import "dsalgo/queue"
 
 func main() {
-	stack.Driver()
+	queue.Driver()
 }
