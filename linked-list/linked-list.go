@@ -9,6 +9,18 @@ type Node struct {
 	Next *Node
 }
 
+type LinkedList interface {
+	Len() int
+	GetLastNode() *Node
+	GetNthNode(index int) *Node
+	Traverse() *Node
+	Append(x int)
+	Contains(x int) bool
+	Insert(index, data int) bool
+	DeleteData(x int) bool
+	DeleteIndex(index int) bool
+}
+
 type LL struct {
 	head *Node
 }
@@ -175,7 +187,7 @@ func (ll *LL) DeleteIndex(index int) bool {
 }
 
 func Driver() {
-	ll := LL{}
+	var ll LinkedList = &LL{}
 
 	i := 0
 	for {
