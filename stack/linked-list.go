@@ -6,12 +6,12 @@ import (
 )
 
 type LLBackend struct {
-	ll *linkedlist.LL
+	ll *linkedlist.LL[int]
 }
 
 func NewLinkedListStackBackend() *LLBackend {
 	return &LLBackend{
-		ll: &linkedlist.LL{},
+		ll: &linkedlist.LL[int]{},
 	}
 }
 

@@ -4,28 +4,28 @@ import (
 	"fmt"
 )
 
-type Node struct {
-	Data int
-	Next *Node
+type Node[T comparable] struct {
+	Data T
+	Next *Node[T]
 }
 
-type LinkedList interface {
+type LinkedList[T comparable] interface {
 	Len() int
-	GetLastNode() *Node
-	GetNthNode(index int) *Node
-	Traverse() *Node
-	Append(x int)
-	Contains(x int) bool
-	Insert(index, data int) bool
-	DeleteData(x int) bool
+	GetLastNode() *Node[T]
+	GetNthNode(index int) *Node[T]
+	Traverse() *Node[T]
+	Append(x T)
+	Contains(x T) bool
+	Insert(index, data T) bool
+	DeleteData(x T) bool
 	DeleteIndex(index int) bool
 }
 
-type LL struct {
-	head *Node
+type LL[T comparable] struct {
+	head *Node[T]
 }
 
-func (ll *LL) Len() int {
+func (ll *LL[T]) Len() int {
 	l := 0
 
 	head := ll.head
@@ -39,8 +39,8 @@ func (ll *LL) Len() int {
 
 // GetLastNode returns last node's pointer
 // If ll is empty it will return nil
-func (ll *LL) GetLastNode() *Node {
-	var last *Node
+func (ll *LL[T]) GetLastNode() *Node[T] {
+	var last *Node[T]
 
 	head := ll.head
 	for head != nil {
@@ -53,9 +53,9 @@ func (ll *LL) GetLastNode() *Node {
 
 // GetNthNode returns the node address of node at index
 // It returns nil if linked list does not have as many nodes
-func (ll *LL) GetNthNode(index int) *Node {
+func (ll *LL[T]) GetNthNode(index int) *Node[T] {
 	i := -1
-	var node *Node
+	var node *Node[T]
 
 	head := ll.head
 	for head != nil && i != index {
@@ -73,8 +73,8 @@ func (ll *LL) GetNthNode(index int) *Node {
 
 // Traverse prints all the values in linked list and returns last node's pointer
 // If ll is empty it will return nil
-func (ll *LL) Traverse() *Node {
-	var last *Node
+func (ll *LL[T]) Traverse() *Node[T] {
+	var last *Node[T]
 
 	head := ll.head
 	for head != nil {
@@ -87,8 +87,8 @@ func (ll *LL) Traverse() *Node {
 	return last
 }
 
-func (ll *LL) Append(x int) {
-	node := &Node{
+func (ll *LL[T]) Append(x T) {
+	node := &Node[T]{
 		Data: x,
 	}
 
@@ -101,7 +101,7 @@ func (ll *LL) Append(x int) {
 	}
 }
 
-func (ll *LL) Contains(x int) bool {
+func (ll *LL[T]) Contains(x T) bool {
 	head := ll.head
 	for head != nil {
 		if head.Data == x {
@@ -114,12 +114,12 @@ func (ll *LL) Contains(x int) bool {
 	return false
 }
 
-func (ll *LL) Insert(index, data int) bool {
+func (ll *LL[T]) Insert(index int, data T) bool {
 	if index < 0 {
 		return false
 	}
 
-	node := &Node{
+	node := &Node[T]{
 		Data: data,
 	}
 
@@ -141,9 +141,9 @@ func (ll *LL) Insert(index, data int) bool {
 	return true
 }
 
-func (ll *LL) DeleteData(x int) bool {
+func (ll *LL[T]) DeleteData(x T) bool {
 	head := ll.head
-	var prev *Node
+	var prev *Node[T]
 
 	for head != nil && head.Data != x {
 		prev = head
@@ -163,7 +163,7 @@ func (ll *LL) DeleteData(x int) bool {
 	return true
 }
 
-func (ll *LL) DeleteIndex(index int) bool {
+func (ll *LL[T]) DeleteIndex(index int) bool {
 	if ll.head == nil {
 		return false
 	}
@@ -187,7 +187,7 @@ func (ll *LL) DeleteIndex(index int) bool {
 }
 
 func Driver() {
-	var ll LinkedList = &LL{}
+	var ll LinkedList[int] = new(LL[int])
 
 	i := 0
 	for {
