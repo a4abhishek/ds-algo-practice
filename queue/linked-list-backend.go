@@ -1,32 +1,32 @@
-package stack
+package queue
 
 import (
 	linkedlist "dsalgo/linked-list"
-	"errors"
 )
 
 type LLBackend struct {
 	ll *linkedlist.LL[int]
 }
 
-func NewLinkedListStackBackend() *LLBackend {
+func NewLinkedListQueueBackend() *LLBackend {
 	return &LLBackend{
 		ll: &linkedlist.LL[int]{},
 	}
 }
 
-func (sb *LLBackend) Push(x int) bool {
-	return sb.ll.Insert(0, x)
+func (sb *LLBackend) Enqueue(x int) bool {
+	sb.ll.Append(x)
+	return true
 }
 
-func (sb *LLBackend) Pop() (int, error) {
+func (sb *LLBackend) Dequeue() (int, error) {
 	firstNode := sb.ll.GetNthNode(0)
 	if firstNode == nil {
-		return 0, errors.New("stack underflow")
+		return 0, ErrQueueUnderflow
 	}
 
 	if !sb.ll.DeleteIndex(0) {
-		return 0, errors.New("could not pop")
+		return 0, ErrPopFailure
 	}
 
 	return firstNode.Data, nil

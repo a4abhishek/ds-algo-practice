@@ -1,7 +1,7 @@
 package main
 
-import linkedlist "dsalgo/linked-list"
+import queue "dsalgo/queue"
 
 func main() {
-	linkedlist.Driver()
+	queue.Driver()
 }

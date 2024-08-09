@@ -36,7 +36,8 @@ func (s *Queue) Size() int {
 }
 
 func Driver() {
-	q := NewQueue(NewLinkedListQueueBackend())
+	// q := NewQueue(NewLinkedListQueueBackend())
+	q := NewQueue(NewSliceBackend())
 
 	i := 0
 	for {
