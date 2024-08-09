@@ -1,7 +1,7 @@
 package main
 
-import queue "dsalgo/queue"
+import ds "dsalgo/heap"
 
 func main() {
-	queue.Driver()
+	ds.Driver()
 }
