@@ -2,40 +2,46 @@ package queue
 
 import (
 	linkedlist "dsalgo/linked-list"
+
+	"golang.org/x/exp/constraints"
 )
 
-type LLBackend struct {
-	ll *linkedlist.LL[int]
+type LLBackend[T constraints.Ordered] struct {
+	zeroValue T
+	ll        *linkedlist.LL[T]
 }
 
-func NewLinkedListQueueBackend() *LLBackend {
-	return &LLBackend{
-		ll: &linkedlist.LL[int]{},
+func NewLinkedListQueueBackend[T constraints.Ordered]() *LLBackend[T] {
+	var zeroValue T
+
+	return &LLBackend[T]{
+		zeroValue: zeroValue,
+		ll:        &linkedlist.LL[T]{},
 	}
 }
 
-func (sb *LLBackend) Enqueue(x int) bool {
-	sb.ll.Append(x)
+func (qb *LLBackend[T]) Enqueue(x T) bool {
+	qb.ll.Append(x)
 	return true
 }
 
-func (sb *LLBackend) Dequeue() (int, error) {
-	firstNode := sb.ll.GetNthNode(0)
+func (qb *LLBackend[T]) Dequeue() (T, error) {
+	firstNode := qb.ll.GetNthNode(0)
 	if firstNode == nil {
-		return 0, ErrQueueUnderflow
+		return qb.zeroValue, ErrQueueUnderflow
 	}
 
-	if !sb.ll.DeleteIndex(0) {
-		return 0, ErrPopFailure
+	if !qb.ll.DeleteIndex(0) {
+		return qb.zeroValue, ErrPopFailure
 	}
 
 	return firstNode.Data, nil
 }
 
-func (sb *LLBackend) Show() {
-	sb.ll.Traverse()
+func (qb *LLBackend[T]) Show() {
+	qb.ll.Traverse()
 }
 
-func (sb *LLBackend) Size() int {
-	return sb.ll.Len()
+func (qb *LLBackend[T]) Size() int {
+	return qb.ll.Len()
 }

@@ -5,24 +5,28 @@ import (
 	"os"
 )
 
-type SliceBackend struct {
-	l []int
+type SliceBackend[T any] struct {
+	zeroValue T
+	l         []T
 }
 
-func NewSliceBackend() *SliceBackend {
-	return &SliceBackend{
-		l: []int{},
+func NewSliceBackend[T any]() *SliceBackend[T] {
+	var zeroValue T
+
+	return &SliceBackend[T]{
+		zeroValue: zeroValue,
+		l:         []T{},
 	}
 }
 
-func (q *SliceBackend) Enqueue(data int) bool {
+func (q *SliceBackend[T]) Enqueue(data T) bool {
 	if q == nil {
 		fmt.Fprintln(os.Stderr, "Slice backend for queue is not instantiated")
 		return false
 	}
 
 	if q.l == nil {
-		q.l = []int{}
+		q.l = []T{}
 	}
 
 	q.l = append(q.l, data)
@@ -30,14 +34,16 @@ func (q *SliceBackend) Enqueue(data int) bool {
 	return true
 }
 
-func (q *SliceBackend) Dequeue() (int, error) {
+func (q *SliceBackend[T]) Dequeue() (T, error) {
 	if q == nil {
 		fmt.Fprintln(os.Stderr, "Slice backend for queue is not instantiated")
-		return 0, ErrPopFailure
+
+		var zeroValue T
+		return zeroValue, ErrPopFailure
 	}
 
 	if len(q.l) == 0 {
-		return 0, ErrQueueUnderflow
+		return q.zeroValue, ErrQueueUnderflow
 	}
 
 	n := q.l[0]
@@ -46,18 +52,18 @@ func (q *SliceBackend) Dequeue() (int, error) {
 	return n, nil
 }
 
-func (q *SliceBackend) Show() {
+func (q *SliceBackend[T]) Show() {
 	if q.Size() == 0 {
 		fmt.Println("Queue is empty")
 		return
 	}
 
 	for _, x := range q.l {
-		fmt.Printf("%d\t", x)
+		fmt.Printf("%v\t", x)
 	}
 	fmt.Println()
 }
 
-func (q *SliceBackend) Size() int {
+func (q *SliceBackend[T]) Size() int {
 	return len(q.l)
 }

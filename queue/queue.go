@@ -1,43 +1,45 @@
 package queue
 
-import "fmt"
+import (
+	"fmt"
+)
 
-type Backend interface {
-	Enqueue(data int) bool
-	Dequeue() (int, error)
+type Backend[T any] interface {
+	Enqueue(data T) bool
+	Dequeue() (T, error)
 	Show()
 	Size() int
 }
 
-type Queue struct {
-	backend Backend
+type Queue[T any] struct {
+	backend Backend[T]
 }
 
-func NewQueue(backend Backend) *Queue {
-	return &Queue{
+func NewQueue[T any](backend Backend[T]) *Queue[T] {
+	return &Queue[T]{
 		backend: backend,
 	}
 }
 
-func (s *Queue) Enqueue(x int) bool {
+func (s *Queue[T]) Enqueue(x T) bool {
 	return s.backend.Enqueue(x)
 }
 
-func (s *Queue) Dequeue() (int, error) {
+func (s *Queue[T]) Dequeue() (T, error) {
 	return s.backend.Dequeue()
 }
 
-func (s *Queue) Show() {
+func (s *Queue[T]) Show() {
 	s.backend.Show()
 }
 
-func (s *Queue) Size() int {
+func (s *Queue[T]) Size() int {
 	return s.backend.Size()
 }
 
 func Driver() {
 	// q := NewQueue(NewLinkedListQueueBackend())
-	q := NewQueue(NewSliceBackend())
+	q := NewQueue[int](NewSliceBackend[int]())
 
 	i := 0
 	for {
